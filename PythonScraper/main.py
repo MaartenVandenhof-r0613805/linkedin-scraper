@@ -1,8 +1,15 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 # Initialize variables
-PATH = "C:/Program Files (x86)/chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+# Windows PC: PATH = "C:/Program Files (x86)/chromedriver.exe"
+PATH = "./drivers/chromedriver"
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
+
+driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
 driver.get(google_url)
 
@@ -13,8 +20,8 @@ driver.get(google_url)
 def screenshotURL(url, name):
     # Set height
     driver.get(url)
-    htmlTag = driver.find_element_by_tag_name('html')
-    height = htmlTag.size["height"] + 1000
+    htmltag = driver.find_element_by_tag_name('html')
+    height = htmltag.size["height"] + 1000
     driver.set_window_size(1920, height)
 
     # Take Screenshot
@@ -24,11 +31,11 @@ def screenshotURL(url, name):
 # SCRIPT
 
 # Remove Agree button and grayed out background
-jsname = "bF1uUb"
-driver.execute_script("document.querySelector('[jsname=" + jsname + "]').style.display = 'none'")
-className = "bErdLd aID8W wwYr3"
-driver.execute_script("document.getElementsByClassName('" + className + "')[0].style.display = 'none'")
-driver.execute_script("document.getElementsByTagName('html')[0].style.overflow = 'auto'")
+# jsname = "bF1uUb"
+# driver.execute_script("document.querySelector('[jsname=" + jsname + "]').style.display = 'none'")
+# className = "bErdLd aID8W wwYr3"
+# driver.execute_script("document.getElementsByClassName('" + className + "')[0].style.display = 'none'")
+# driver.execute_script("document.getElementsByTagName('html')[0].style.overflow = 'auto'")
 
 # Get ad links
 adLinks = []
