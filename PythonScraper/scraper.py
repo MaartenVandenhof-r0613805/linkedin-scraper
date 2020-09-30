@@ -2,8 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 # Initialize variables
-# Windows PC: PATH = "C:/Program Files (x86)/chromedriver.exe"
-PATH = "./drivers/chromedriver"
+# Windows PC:
+PATH = "C:/Program Files (x86)/chromedriver.exe"
+
+# LINUX PC:
+# PATH = "./drivers/chromedriver"
+
 chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--no-sandbox')
