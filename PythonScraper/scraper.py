@@ -1,3 +1,6 @@
+import glob
+import os
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -42,20 +45,36 @@ def screenshotURL(url, name):
 # driver.execute_script("document.getElementsByClassName('" + className + "')[0].style.display = 'none'")
 # driver.execute_script("document.getElementsByTagName('html')[0].style.overflow = 'auto'")
 
+# Remove old contents screenshot folder
+files = glob.glob('./screenshots/*')
+for f in files:
+    os.remove(f)
+
 # Get ad links
 adLinks = []
 for el in driver.find_elements_by_class_name("Krnil"):
     adLinks.append(el.get_attribute('href'))
 
-# Take screenshot and save URL's to txt file
+# Get 4 first search results
+rLinks = []
+results = driver.find_elements_by_class_name("g")
+for i in range(4):
+    rLinks.append(results[i].find_element_by_tag_name("a").get_attribute('href'))
+
+# Take screenshot ad pages and save URL's to txt file
 file = open("adURLs.txt", "w+")
 index = 0
 for el in adLinks:
     index = index + 1
     file.write(el + '\n')
-    screenshotURL(el, "screenshot_" + str(index))
-
+    screenshotURL(el, "adScreenshot_" + str(index))
 file.close()
+
+# Take screenshot search results
+index = 0
+for el in rLinks:
+    index = index + 1
+    screenshotURL(el, "resultScreenshot_" + str(index))
 
 # Close browser
 driver.quit()
