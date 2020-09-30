@@ -5,6 +5,8 @@ import glob
 
 # Works only on Windows
 pt.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+
+# Set screenshot directory
 directory = "./screenshots"
 
 # Remove old contents pdf folder
@@ -12,9 +14,9 @@ files = glob.glob('./pdfFiles/*')
 for f in files:
     os.remove(f)
 
+# Screenshot to text and PDF
 pdfFiles = []
 titleInt = 1
-# Screenshot to text and PDF
 for filename in os.listdir(directory):
     # Convert image to text/PDF
     im = Image.open(directory + "/" + filename)
@@ -26,5 +28,3 @@ for filename in os.listdir(directory):
     f.close()
     print("file " + str(titleInt) + " written")
     titleInt = titleInt + 1
-
-    # text = pt.image_to_string(im, lang="nld")
