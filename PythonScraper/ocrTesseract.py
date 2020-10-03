@@ -18,6 +18,8 @@ for f in files:
 pdfFiles = []
 titleInt = 1
 for filename in os.listdir(directory):
+
+
     # Convert image to text/PDF
     im = Image.open(directory + "/" + filename)
     pdf = pt.image_to_pdf_or_hocr(im, lang="nld", extension="pdf")

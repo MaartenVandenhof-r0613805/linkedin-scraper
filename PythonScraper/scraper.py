@@ -1,6 +1,6 @@
 import glob
 import os
-
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -20,20 +20,63 @@ driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
 driver.get(google_url)
 
+dataJSON = {'adCompanies': [], 'searchResults': []}
+
 
 # FUNCTIONS
 
+# Returns name from URL
+def getNameFromURL(url):
+    length = len(url.split("."))
+    if length == 2:
+        firstElLink = url.split(".")[0]
+        name = firstElLink.split("/")[2]
+    else:
+        name = url.split(".")[1]
+    return str(name)
+
+
 # Screenshot function
-def screenshotURL(url, name):
+def screenshotURLAndAddToJSON(url, name, isCompany, jsonFile):
     # Set height
     driver.get(url)
-    htmltag = driver.find_element_by_tag_name('html')
-    height = htmltag.size["height"] + 1000
+    htmlTag = driver.find_element_by_tag_name('html')
+    height = htmlTag.size["height"] + 1000
     driver.set_window_size(1920, height)
 
     # Take Screenshot
     driver.save_screenshot("screenshots/" + name + '.png')
     print("screenshot " + name + " taken")
+
+    # Save path to JSON
+    urlName = getNameFromURL(url)
+    if isCompany:
+        for element in jsonFile['adCompanies']:
+            if list(element.keys())[0] == urlName:
+                element[urlName].append({
+                    'screenshotPath': 'screenshots/' + name + '.png'
+                })
+                break
+    else:
+        for element in jsonFile['searchResults']:
+            if list(element.keys())[0] == urlName:
+                element[urlName].append({
+                    'screenshotPath': 'screenshots/' + name + '.png'
+                })
+                break
+
+
+# Returns the name of the company from the URL
+def addNameFromURLToJson(url, isCompany, jsonFile):
+    name = getNameFromURL(url)
+    if isCompany:
+        jsonFile['adCompanies'].append({
+            name: []
+        })
+    else:
+        jsonFile['searchResults'].append({
+            name: []
+        })
 
 
 # SCRIPT
@@ -50,10 +93,14 @@ files = glob.glob('./screenshots/*')
 for f in files:
     os.remove(f)
 
+# GET ALL LINKS
 # Get ad links
 adLinks = []
 for el in driver.find_elements_by_class_name("Krnil"):
     adLinks.append(el.get_attribute('href'))
+
+    # Add company name to JSON file
+    addNameFromURLToJson(str(el.get_attribute('href')), True, dataJSON)
 
 # Get 4 first search results
 rLinks = []
@@ -61,20 +108,25 @@ results = driver.find_elements_by_class_name("g")
 for i in range(4):
     rLinks.append(results[i].find_element_by_tag_name("a").get_attribute('href'))
 
+    # Add name site to JSON
+    addNameFromURLToJson(str(results[i].find_element_by_tag_name("a").get_attribute('href')), False, dataJSON)
+
+# NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
-file = open("adURLs.txt", "w+")
 index = 0
 for el in adLinks:
     index = index + 1
-    file.write(el + '\n')
-    screenshotURL(el, "adScreenshot_" + str(index))
-file.close()
+    screenshotURLAndAddToJSON(el, "adScreenshot_" + str(index), True, dataJSON)
 
 # Take screenshot search results
 index = 0
 for el in rLinks:
     index = index + 1
-    screenshotURL(el, "resultScreenshot_" + str(index))
+    screenshotURLAndAddToJSON(el, "resultScreenshot_" + str(index), False, dataJSON)
+
+# Write JSON file
+with open('./data/WebscrapeData.json', 'w') as out:
+    json.dump(dataJSON, out)
 
 # Close browser
 driver.quit()
