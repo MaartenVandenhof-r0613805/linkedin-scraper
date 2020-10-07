@@ -52,17 +52,13 @@ def screenshotURLAndAddToJSON(url, name, isCompany, jsonFile):
     urlName = getNameFromURL(url)
     if isCompany:
         for element in jsonFile['adCompanies']:
-            if list(element.keys())[0] == urlName:
-                element[urlName].append({
-                    'screenshotPath': 'screenshots/' + name + '.png'
-                })
+            if element['name'] == urlName:
+                element['screenshotPath'] = 'screenshots/' + name + '.png'
                 break
     else:
         for element in jsonFile['searchResults']:
-            if list(element.keys())[0] == urlName:
-                element[urlName].append({
-                    'screenshotPath': 'screenshots/' + name + '.png'
-                })
+            if element['name'] == urlName:
+                element['screenshotPath'] = 'screenshots/' + name + '.png'
                 break
 
 
@@ -71,11 +67,11 @@ def addNameFromURLToJson(url, isCompany, jsonFile):
     name = getNameFromURL(url)
     if isCompany:
         jsonFile['adCompanies'].append({
-            name: []
+            'name': name
         })
     else:
         jsonFile['searchResults'].append({
-            name: []
+            'name': name
         })
 
 
