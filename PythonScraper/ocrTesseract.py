@@ -17,6 +17,15 @@ def addTextToJson(jsonElement, textJsonName, imagePath):
     print("json text added from " + imagePath)
 
 
+def addCategoriesToJson(jsonElement, textJsonName, imagePath):
+    try:
+        im = Image.open(str(imagePath))
+        content = pt.image_to_string(im, lang="nld")
+        # print(content)
+    except KeyError:
+        print("No linkedIn screenshot")
+
+
 # SCRIPT
 # Remove old contents pdf folder
 files = glob.glob('./pdfFiles/*')
@@ -33,6 +42,7 @@ with open('./data/WebscrapeData.json') as json_file:
 for line in data:
     for element in data[str(line)]:
         addTextToJson(element, 'content', element['screenshotPath'])
+        addCategoriesToJson(element, "categories", element['linkedinScreenshot'])
 
 # Write to Json file
 with open('./data/WebscrapeData.json', 'w') as out:

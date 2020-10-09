@@ -18,6 +18,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 
 driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
+googleLinkedin_url = "https://www.google.be/search?q=linkedin"
 driver.get(google_url)
 
 dataJSON = {'adCompanies': [], 'searchResults': []}
@@ -25,8 +26,8 @@ dataJSON = {'adCompanies': [], 'searchResults': []}
 
 # FUNCTIONS
 
-# Returns name from URL
-def getNameFromURL(url):
+# Returns name from site URL
+def getNameFromSiteURL(url):
     length = len(url.split("."))
     if length == 2:
         firstElLink = url.split(".")[0]
@@ -37,7 +38,7 @@ def getNameFromURL(url):
 
 
 # Screenshot function
-def screenshotURLAndAddToJSON(url, name, isCompany, jsonFile):
+def screenshotURLAndAddPathToJSON(url, screenshotName, orgName, isCompany, jsonFile, pathType):
     # Set height
     driver.get(url)
     htmlTag = driver.find_element_by_tag_name('html')
@@ -45,26 +46,25 @@ def screenshotURLAndAddToJSON(url, name, isCompany, jsonFile):
     driver.set_window_size(1920, height)
 
     # Take Screenshot
-    driver.save_screenshot("screenshots/" + name + '.png')
-    print("screenshot " + name + " taken")
+    driver.save_screenshot("screenshots/" + screenshotName + '.png')
+    print("screenshot " + screenshotName + " taken")
 
     # Save path to JSON
-    urlName = getNameFromURL(url)
     if isCompany:
         for element in jsonFile['adCompanies']:
-            if element['name'] == urlName:
-                element['screenshotPath'] = 'screenshots/' + name + '.png'
+            if element['name'] == orgName:
+                element[str(pathType)] = 'screenshots/' + screenshotName + '.png'
                 break
     else:
         for element in jsonFile['searchResults']:
-            if element['name'] == urlName:
-                element['screenshotPath'] = 'screenshots/' + name + '.png'
+            if element['name'] == orgName:
+                element[str(pathType)] = 'screenshots/' + screenshotName + '.png'
                 break
 
 
 # Returns the name of the company from the URL
 def addNameFromURLToJson(url, isCompany, jsonFile):
-    name = getNameFromURL(url)
+    name = getNameFromSiteURL(url)
     if isCompany:
         jsonFile['adCompanies'].append({
             'name': name
@@ -73,6 +73,15 @@ def addNameFromURLToJson(url, isCompany, jsonFile):
         jsonFile['searchResults'].append({
             'name': name
         })
+
+
+# Add LinkedIn page to JSON
+def addLinkedinToJSON(url):
+    name = str(getNameFromSiteURL(url))
+    driver.get(googleLinkedin_url + name)
+    linkedinLink = driver.find_elements_by_class_name("g")[0].find_element_by_tag_name("a").get_attribute('href')
+    screenshotURLAndAddPathToJSON(linkedinLink, "linkedinScreenshot_" + name, name
+                                  , True, dataJSON, "linkedinScreenshot")
 
 
 # SCRIPT
@@ -88,6 +97,7 @@ def addNameFromURLToJson(url, isCompany, jsonFile):
 files = glob.glob('./screenshots/*')
 for f in files:
     os.remove(f)
+
 
 # GET ALL LINKS
 # Get ad links
@@ -107,18 +117,29 @@ for i in range(4):
     # Add name site to JSON
     addNameFromURLToJson(str(results[i].find_element_by_tag_name("a").get_attribute('href')), False, dataJSON)
 
+
 # NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
 index = 0
 for el in adLinks:
     index = index + 1
-    screenshotURLAndAddToJSON(el, "adScreenshot_" + str(index), True, dataJSON)
+    screenshotURLAndAddPathToJSON(el, "adScreenshot_" + str(index), str(getNameFromSiteURL(el)),
+                                  True, dataJSON, "screenshotPath")
 
 # Take screenshot search results
 index = 0
 for el in rLinks:
     index = index + 1
-    screenshotURLAndAddToJSON(el, "resultScreenshot_" + str(index), False, dataJSON)
+    screenshotURLAndAddPathToJSON(el, "resultScreenshot_" + str(index), str(getNameFromSiteURL(el)),
+                                  False, dataJSON, "screenshotPath")
+
+
+# GET LINKEDIN DATA COMPANIES
+# Get linkedin links
+for link in adLinks:
+    addLinkedinToJSON(link)
+for link in rLinks:
+    addLinkedinToJSON(link)
 
 # Write JSON file
 with open('./data/WebscrapeData.json', 'w') as out:
