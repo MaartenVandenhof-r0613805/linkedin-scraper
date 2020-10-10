@@ -1,6 +1,7 @@
 import glob
 import os
 import json
+import configparser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -12,9 +13,7 @@ PATH = "C:/Program Files (x86)/chromedriver.exe"
 # PATH = "./drivers/chromedriver"
 
 chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
+
 
 driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
@@ -121,20 +120,28 @@ for i in range(4):
 # NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
 index = 0
-for el in adLinks:
+for url in adLinks:
     index = index + 1
-    screenshotURLAndAddPathToJSON(el, "adScreenshot_" + str(index), str(getNameFromSiteURL(el)),
+    screenshotURLAndAddPathToJSON(url, "adScreenshot_" + str(index), str(getNameFromSiteURL(url)),
                                   True, dataJSON, "screenshotPath")
 
 # Take screenshot search results
 index = 0
-for el in rLinks:
+for url in rLinks:
     index = index + 1
-    screenshotURLAndAddPathToJSON(el, "resultScreenshot_" + str(index), str(getNameFromSiteURL(el)),
+    screenshotURLAndAddPathToJSON(url, "resultScreenshot_" + str(index), str(getNameFromSiteURL(url)),
                                   False, dataJSON, "screenshotPath")
 
 
 # GET LINKEDIN DATA COMPANIES
+# Initialize LinkedIn
+config = configparser.ConfigParser()
+config.read('C:/Users/maart/Documents/config.ini')
+driver.get("https://www.linkedin.com/")
+driver.find_element_by_id("session_key").send_keys(config['CREDS']['USERNAME'])
+driver.find_element_by_id("session_password").send_keys(config['CREDS']['PASSWORD'])
+driver.find_elements_by_class_name("sign-in-form__submit-button")[0].click()
+
 # Get linkedin links
 for link in adLinks:
     addLinkedinToJSON(link)

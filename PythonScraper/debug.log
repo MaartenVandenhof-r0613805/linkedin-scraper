@@ -1,2 +1,4 @@
 [0926/131535.944:ERROR:process_reader_win.cc(151)] SuspendThread: Toegang geweigerd. (0x5)
 [0926/131535.945:ERROR:exception_snapshot_win.cc(99)] thread ID 4144 not found in process
+[1009/171252.779:ERROR:directory_reader_win.cc(43)] FindFirstFile: Het systeem kan het opgegeven pad niet vinden. (0x3)
+[1009/171333.380:ERROR:directory_reader_win.cc(43)] FindFirstFile: Het systeem kan het opgegeven pad niet vinden. (0x3)
