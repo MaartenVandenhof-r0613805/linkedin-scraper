@@ -2,8 +2,10 @@ import glob
 import os
 import json
 import configparser
+import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import bs4
 
 # Initialize variables
 # Windows PC:
@@ -13,7 +15,7 @@ PATH = "C:/Program Files (x86)/chromedriver.exe"
 # PATH = "./drivers/chromedriver"
 
 chrome_options = Options()
-
+chrome_options.add_argument("--headless")
 
 driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
@@ -74,14 +76,44 @@ def addNameFromURLToJson(url, isCompany, jsonFile):
         })
 
 
-# Add LinkedIn page to JSON
-def addLinkedinToJSON(url):
+# Add element to Json
+def addElementToJson(name, isCompany, elementName, element, jsonFile):
+    if isCompany:
+        for elm in jsonFile['adCompanies']:
+            if elm['name'] == name:
+                elm[str(elementName)] = element
+                break
+    else:
+        for elm in jsonFile['searchResults']:
+            if elm['name'] == name:
+                elm[str(elementName)] = element
+                break
+
+
+# Add LinkedIn info to JSON
+def addLinkedinToJSON(url, isComany):
     name = str(getNameFromSiteURL(url))
     driver.get(googleLinkedin_url + name)
-    linkedinLink = driver.find_elements_by_class_name("g")[0].find_element_by_tag_name("a").get_attribute('href')
-    screenshotURLAndAddPathToJSON(linkedinLink, "linkedinScreenshot_" + name, name
-                                  , True, dataJSON, "linkedinScreenshot")
-
+    linkedInLink = str(driver.find_elements_by_class_name("g")[0].find_element_by_tag_name("a").get_attribute('href'))
+    length = len(linkedInLink.split("/"))
+    linkedInName = linkedInLink.split("/")[length-1]
+    # Take screenshot homepage
+    screenshotURLAndAddPathToJSON(linkedInLink, "linkedinScreenshot_" + name, name
+                                  , isComany, dataJSON, "linkedinScreenshot")
+    # Add categories
+    driver.get("https://www.linkedin.com/company/" + linkedInName + "/about/")
+    driver.implicitly_wait(2)
+    soup = bs4.BeautifulSoup(driver.page_source, "html.parser")
+    if str(soup.find(text=re.compile('Specialismen'))) != "None":
+        categories = str(soup.find(text=re.compile('Specialismen')).parent.findNext('dd').contents[0])\
+            .strip().split(",")
+        lastCategory = categories.pop()
+        # Check if last category contains en and split
+        if " en " in str(lastCategory):
+            categories.pop()
+            categories.append(lastCategory.split(" en ")[0].strip())
+            categories.append(lastCategory.split(" en ")[1].strip())
+        addElementToJson(name, isComany, "categories", categories, dataJSON)
 
 # SCRIPT
 
@@ -120,33 +152,33 @@ for i in range(4):
 # NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
 index = 0
-for url in adLinks:
+for link in adLinks:
     index = index + 1
-    screenshotURLAndAddPathToJSON(url, "adScreenshot_" + str(index), str(getNameFromSiteURL(url)),
+    screenshotURLAndAddPathToJSON(link, "adScreenshot_" + str(index), str(getNameFromSiteURL(link)),
                                   True, dataJSON, "screenshotPath")
 
 # Take screenshot search results
 index = 0
-for url in rLinks:
+for link in rLinks:
     index = index + 1
-    screenshotURLAndAddPathToJSON(url, "resultScreenshot_" + str(index), str(getNameFromSiteURL(url)),
+    screenshotURLAndAddPathToJSON(link, "resultScreenshot_" + str(index), str(getNameFromSiteURL(link)),
                                   False, dataJSON, "screenshotPath")
 
 
 # GET LINKEDIN DATA COMPANIES
-# Initialize LinkedIn
-config = configparser.ConfigParser()
-config.read('C:/Users/maart/Documents/config.ini')
+# Initialize LinkedIn with local account details
+accountDetailsConfig = configparser.ConfigParser()
+accountDetailsConfig.read('C:/Users/maart/Documents/config.ini')
 driver.get("https://www.linkedin.com/")
-driver.find_element_by_id("session_key").send_keys(config['CREDS']['USERNAME'])
-driver.find_element_by_id("session_password").send_keys(config['CREDS']['PASSWORD'])
+driver.find_element_by_id("session_key").send_keys(accountDetailsConfig['CREDS']['USERNAME'])
+driver.find_element_by_id("session_password").send_keys(accountDetailsConfig['CREDS']['PASSWORD'])
 driver.find_elements_by_class_name("sign-in-form__submit-button")[0].click()
 
 # Get linkedin links
 for link in adLinks:
-    addLinkedinToJSON(link)
+    addLinkedinToJSON(link, True)
 for link in rLinks:
-    addLinkedinToJSON(link)
+    addLinkedinToJSON(link, False)
 
 # Write JSON file
 with open('./data/WebscrapeData.json', 'w') as out:
