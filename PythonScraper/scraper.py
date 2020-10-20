@@ -115,6 +115,19 @@ def addLinkedinToJSON(url, isComany):
             categories.append(lastCategory.split(" en ")[1].strip())
         addElementToJson(name, isComany, "categories", categories, dataJSON)
 
+    # Add jobs
+    driver.get("https://www.linkedin.com/company/" + linkedInName + "/jobs/")
+    driver.implicitly_wait(2)
+    if len(driver.find_elements_by_class_name("org-jobs-empty-jobs-module__computer-illustration illustration-56"))\
+            == 0:
+        jobElements = driver.find_elements_by_class_name("job-card-square__title")
+        jobTitles = []
+        for elm in jobElements:
+            title = str(elm.text).replace('Functietitel\n', '')
+            if title != "":
+                jobTitles.append(title)
+        addElementToJson(name, isComany, "jobs", jobTitles, dataJSON)
+
 # SCRIPT
 
 # Remove Agree button and grayed out background
@@ -123,6 +136,7 @@ def addLinkedinToJSON(url, isComany):
 # className = "bErdLd aID8W wwYr3"
 # driver.execute_script("document.getElementsByClassName('" + className + "')[0].style.display = 'none'")
 # driver.execute_script("document.getElementsByTagName('html')[0].style.overflow = 'auto'")
+
 
 # Remove old contents screenshot folder
 files = glob.glob('./screenshots/*')
@@ -167,6 +181,7 @@ for link in rLinks:
 
 # GET LINKEDIN DATA COMPANIES
 # Initialize LinkedIn with local account details
+# (create your own config.ini with account details local and point to that path)
 accountDetailsConfig = configparser.ConfigParser()
 accountDetailsConfig.read('C:/Users/maart/Documents/config.ini')
 driver.get("https://www.linkedin.com/")
