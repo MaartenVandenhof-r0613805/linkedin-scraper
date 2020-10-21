@@ -46,6 +46,18 @@ def screenshotURLAndAddPathToJSON(url, screenshotName, orgName, isCompany, jsonF
     height = htmlTag.size["height"] + 1000
     driver.set_window_size(1920, height)
 
+    # Agree to cookies
+    driver.implicitly_wait(5)
+    buttonNames = ["proceed", "agree", "aanvaard", "accepteer", "accepteren", "accept", "akkoord"]
+    soup = bs4.BeautifulSoup(driver.page_source, "html.parser")
+    for name in buttonNames:
+        if soup.findAll('button', text=re.compile(".*" + name + ".*")):
+            for element in soup.findAll('button', text=re.compile(".*" + name + ".*")):
+                try:
+                    driver.find_element_by_id(element.get("id")).click()
+                except:
+                    print("cookiebutton not found by id")
+
     # Take Screenshot
     driver.save_screenshot("screenshots/" + screenshotName + '.png')
     print("screenshot " + screenshotName + " taken")
@@ -96,7 +108,7 @@ def addLinkedinToJSON(url, isComany):
     driver.get(googleLinkedin_url + name)
     linkedInLink = str(driver.find_elements_by_class_name("g")[0].find_element_by_tag_name("a").get_attribute('href'))
     length = len(linkedInLink.split("/"))
-    linkedInName = linkedInLink.split("/")[length-1]
+    linkedInName = linkedInLink.split("/")[length - 1]
     # Take screenshot homepage
     screenshotURLAndAddPathToJSON(linkedInLink, "linkedinScreenshot_" + name, name
                                   , isComany, dataJSON, "linkedinScreenshot")
@@ -105,7 +117,7 @@ def addLinkedinToJSON(url, isComany):
     driver.implicitly_wait(2)
     soup = bs4.BeautifulSoup(driver.page_source, "html.parser")
     if str(soup.find(text=re.compile('Specialismen'))) != "None":
-        categories = str(soup.find(text=re.compile('Specialismen')).parent.findNext('dd').contents[0])\
+        categories = str(soup.find(text=re.compile('Specialismen')).parent.findNext('dd').contents[0]) \
             .strip().split(",")
         lastCategory = categories.pop()
         # Check if last category contains en and split
@@ -118,7 +130,7 @@ def addLinkedinToJSON(url, isComany):
     # Add jobs
     driver.get("https://www.linkedin.com/company/" + linkedInName + "/jobs/")
     driver.implicitly_wait(2)
-    if len(driver.find_elements_by_class_name("org-jobs-empty-jobs-module__computer-illustration illustration-56"))\
+    if len(driver.find_elements_by_class_name("org-jobs-empty-jobs-module__computer-illustration illustration-56")) \
             == 0:
         jobElements = driver.find_elements_by_class_name("job-card-square__title")
         jobTitles = []
@@ -127,6 +139,7 @@ def addLinkedinToJSON(url, isComany):
             if title != "":
                 jobTitles.append(title)
         addElementToJson(name, isComany, "jobs", jobTitles, dataJSON)
+
 
 # SCRIPT
 
@@ -142,7 +155,6 @@ def addLinkedinToJSON(url, isComany):
 files = glob.glob('./screenshots/*')
 for f in files:
     os.remove(f)
-
 
 # GET ALL LINKS
 # Get ad links
@@ -162,7 +174,6 @@ for i in range(4):
     # Add name site to JSON
     addNameFromURLToJson(str(results[i].find_element_by_tag_name("a").get_attribute('href')), False, dataJSON)
 
-
 # NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
 index = 0
@@ -177,7 +188,6 @@ for link in rLinks:
     index = index + 1
     screenshotURLAndAddPathToJSON(link, "resultScreenshot_" + str(index), str(getNameFromSiteURL(link)),
                                   False, dataJSON, "screenshotPath")
-
 
 # GET LINKEDIN DATA COMPANIES
 # Initialize LinkedIn with local account details
