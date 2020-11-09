@@ -22,7 +22,7 @@ google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
 googleLinkedin_url = "https://www.google.be/search?q=linkedin"
 driver.get(google_url)
 
-dataJSON = {'adCompanies': [], 'searchResults': []}
+dataJSON = {'resultData': []}
 
 
 # FUNCTIONS
@@ -39,7 +39,7 @@ def getNameFromSiteURL(url):
 
 
 # Screenshot function
-def screenshotURLAndAddPathToJSON(url, screenshotName, orgName, isCompany, jsonFile, pathType):
+def screenshotURLAndAddPathToJSON(url, screenshotName, orgName, jsonFile, pathType):
     # Set height
     driver.get(url)
     htmlTag = driver.find_element_by_tag_name('html')
@@ -63,47 +63,36 @@ def screenshotURLAndAddPathToJSON(url, screenshotName, orgName, isCompany, jsonF
     print("screenshot " + screenshotName + " taken")
 
     # Save path to JSON
-    if isCompany:
-        for element in jsonFile['adCompanies']:
-            if element['name'] == orgName:
-                element[str(pathType)] = 'screenshots/' + screenshotName + '.png'
-                break
-    else:
-        for element in jsonFile['searchResults']:
-            if element['name'] == orgName:
-                element[str(pathType)] = 'screenshots/' + screenshotName + '.png'
-                break
+    for element in jsonFile['resultData']:
+        if element['name'] == orgName:
+            element[str(pathType)] = 'screenshots/' + screenshotName + '.png'
+            break
 
 
 # Returns the name of the company from the URL
 def addNameFromURLToJson(url, isCompany, jsonFile):
     name = getNameFromSiteURL(url)
     if isCompany:
-        jsonFile['adCompanies'].append({
-            'name': name
+        jsonFile['resultData'].append({
+            'name': name,
+            'resultCategory': 'adCompany'
         })
     else:
-        jsonFile['searchResults'].append({
-            'name': name
+        jsonFile['resultData'].append({
+            'name': name,
+            'resultCategory': 'searchResults'
         })
 
 
 # Add element to Json
-def addElementToJson(name, isCompany, elementName, element, jsonFile):
-    if isCompany:
-        for elm in jsonFile['adCompanies']:
-            if elm['name'] == name:
-                elm[str(elementName)] = element
-                break
-    else:
-        for elm in jsonFile['searchResults']:
-            if elm['name'] == name:
-                elm[str(elementName)] = element
-                break
+def addElementToJson(name, elementName, element, jsonFile):
+    for elm in jsonFile['resultData']:
+        if elm['name'] == name:
+            elm[str(elementName)] = element
 
 
 # Add LinkedIn info to JSON
-def addLinkedinToJSON(url, isComany):
+def addLinkedinToJSON(url):
     name = str(getNameFromSiteURL(url))
     driver.get(googleLinkedin_url + name)
     linkedInLink = str(driver.find_elements_by_class_name("g")[0].find_element_by_tag_name("a").get_attribute('href'))
@@ -111,7 +100,7 @@ def addLinkedinToJSON(url, isComany):
     linkedInName = linkedInLink.split("/")[length - 1]
     # Take screenshot homepage
     screenshotURLAndAddPathToJSON(linkedInLink, "linkedinScreenshot_" + name, name
-                                  , isComany, dataJSON, "linkedinScreenshot")
+                                  , dataJSON, "linkedinScreenshot")
     # Add categories
     driver.get("https://www.linkedin.com/company/" + linkedInName + "/about/")
     driver.implicitly_wait(2)
@@ -125,7 +114,7 @@ def addLinkedinToJSON(url, isComany):
             categories.pop()
             categories.append(lastCategory.split(" en ")[0].strip())
             categories.append(lastCategory.split(" en ")[1].strip())
-        addElementToJson(name, isComany, "categories", categories, dataJSON)
+        addElementToJson(name, "categories", categories, dataJSON)
 
     # Add jobs
     driver.get("https://www.linkedin.com/company/" + linkedInName + "/jobs/")
@@ -138,7 +127,7 @@ def addLinkedinToJSON(url, isComany):
             title = str(elm.text).replace('Functietitel\n', '')
             if title != "":
                 jobTitles.append(title)
-        addElementToJson(name, isComany, "jobs", jobTitles, dataJSON)
+        addElementToJson(name, "jobs", jobTitles, dataJSON)
 
 
 # SCRIPT
@@ -179,15 +168,15 @@ for i in range(4):
 index = 0
 for link in adLinks:
     index = index + 1
-    screenshotURLAndAddPathToJSON(link, "adScreenshot_" + str(index), str(getNameFromSiteURL(link)),
-                                  True, dataJSON, "screenshotPath")
+    screenshotURLAndAddPathToJSON(link, "adScreenshot_" + str(index), str(getNameFromSiteURL(link))
+                                  , dataJSON, "screenshotPath")
 
 # Take screenshot search results
 index = 0
 for link in rLinks:
     index = index + 1
     screenshotURLAndAddPathToJSON(link, "resultScreenshot_" + str(index), str(getNameFromSiteURL(link)),
-                                  False, dataJSON, "screenshotPath")
+                                  dataJSON, "screenshotPath")
 
 # GET LINKEDIN DATA COMPANIES
 # Initialize LinkedIn with local account details
@@ -201,9 +190,9 @@ driver.find_elements_by_class_name("sign-in-form__submit-button")[0].click()
 
 # Get linkedin links
 for link in adLinks:
-    addLinkedinToJSON(link, True)
+    addLinkedinToJSON(link)
 for link in rLinks:
-    addLinkedinToJSON(link, False)
+    addLinkedinToJSON(link)
 
 # Write JSON file
 with open('./data/WebscrapeData.json', 'w') as out:
