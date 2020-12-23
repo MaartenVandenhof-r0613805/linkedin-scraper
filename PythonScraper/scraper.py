@@ -3,13 +3,15 @@ import os
 import json
 import configparser
 import re
+
+import pandas as pandas
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import bs4
 
 # Initialize variables
 # Windows PC:
-PATH = "C:/Program Files (x86)/chromedriver.exe"
+PATH = "./drivers/chromedriver.exe"
 
 # LINUX PC:
 # PATH = "./drivers/chromedriver"
@@ -182,7 +184,7 @@ for link in rLinks:
 # Initialize LinkedIn with local account details
 # (create your own config.ini with account details local and point to that path)
 accountDetailsConfig = configparser.ConfigParser()
-accountDetailsConfig.read('C:/Users/maart/Documents/config.ini')
+accountDetailsConfig.read('C:/Users/Maarten Van den hof/Documents/config.ini')
 driver.get("https://www.linkedin.com/")
 driver.find_element_by_id("session_key").send_keys(accountDetailsConfig['CREDS']['USERNAME'])
 driver.find_element_by_id("session_password").send_keys(accountDetailsConfig['CREDS']['PASSWORD'])
@@ -200,3 +202,4 @@ with open('./data/WebscrapeData.json', 'w') as out:
 
 # Close browser
 driver.quit()
+
