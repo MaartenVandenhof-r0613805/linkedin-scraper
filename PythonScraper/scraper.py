@@ -243,7 +243,7 @@ def addLinkedinToDF(url, scraperCat):
 
     # Add jobs
     driver.get("https://www.linkedin.com/company/" + linkedInName + "/jobs/")
-    driver.implicitly_wait(2)
+    driver.implicitly_wait(3)
     jobTitles = []
     if len(driver.find_elements_by_class_name("org-jobs-empty-jobs-module__computer-illustration illustration-56")) \
             == 0:

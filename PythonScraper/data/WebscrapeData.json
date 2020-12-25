@@ -89,6 +89,18 @@
         },
         {
             "index": 2,
+            "Name": "dx-solutions",
+            "ScraperCategory": "advertisement",
+            "Jobs": [],
+            "Category": [
+                "mobile apps",
+                "consultancy",
+                "training"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 3,
             "Name": "cropland",
             "ScraperCategory": "advertisement",
             "Jobs": [],
@@ -107,18 +119,6 @@
             "Date": "25/12/2020"
         },
         {
-            "index": 3,
-            "Name": "dx-solutions",
-            "ScraperCategory": "advertisement",
-            "Jobs": [],
-            "Category": [
-                "mobile apps",
-                "consultancy",
-                "training"
-            ],
-            "Date": "25/12/2020"
-        },
-        {
             "index": 4,
             "Name": "tijd",
             "ScraperCategory": "search result",
@@ -130,7 +130,11 @@
             "index": 5,
             "Name": "imec",
             "ScraperCategory": "search result",
-            "Jobs": [],
+            "Jobs": [
+                "Senior Analog Design Engineer Image Sensor",
+                "Process Integration Engineer FEOL",
+                "Process Engineer Metrology"
+            ],
             "Category": [
                 "R&D",
                 " nanoelectronics",
@@ -173,7 +177,10 @@
             "index": 7,
             "Name": "realdolmen",
             "ScraperCategory": "search result",
-            "Jobs": [],
+            "Jobs": [
+                "Junior Business and Functional Analyst",
+                "Functional Analyst"
+            ],
             "Category": [
                 "Strategic ICT",
                 "Operational ICT",
