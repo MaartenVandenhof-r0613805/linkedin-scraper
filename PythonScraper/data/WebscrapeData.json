@@ -1,1 +1,185 @@
-{"resultData": [{"name": "verhaert", "resultCategory": "adCompany", "screenshotPath": "screenshots/adScreenshot_1.png", "linkedinScreenshot": "screenshots/linkedinScreenshot_verhaert.png", "jobs": []}, {"name": "tijd", "resultCategory": "searchResults", "screenshotPath": "screenshots/resultScreenshot_1.png", "linkedinScreenshot": "screenshots/linkedinScreenshot_tijd.png", "jobs": []}, {"name": "imec", "resultCategory": "searchResults", "screenshotPath": "screenshots/resultScreenshot_2.png", "linkedinScreenshot": "screenshots/linkedinScreenshot_imec.png", "jobs": []}, {"name": "bloovi", "resultCategory": "searchResults", "screenshotPath": "screenshots/resultScreenshot_3.png", "linkedinScreenshot": "screenshots/linkedinScreenshot_bloovi.png", "jobs": []}, {"name": "realdolmen", "resultCategory": "searchResults", "screenshotPath": "screenshots/resultScreenshot_4.png", "linkedinScreenshot": "screenshots/linkedinScreenshot_realdolmen.png", "jobs": []}]}
+{
+    "schema": {
+        "fields": [
+            {
+                "name": "index",
+                "type": "integer"
+            },
+            {
+                "name": "Name",
+                "type": "string"
+            },
+            {
+                "name": "ScraperCategory",
+                "type": "string"
+            },
+            {
+                "name": "Jobs",
+                "type": "string"
+            },
+            {
+                "name": "Category",
+                "type": "string"
+            },
+            {
+                "name": "Date",
+                "type": "string"
+            }
+        ],
+        "primaryKey": [
+            "index"
+        ],
+        "pandas_version": "0.20.0"
+    },
+    "data": [
+        {
+            "index": 0,
+            "Name": "pegus",
+            "ScraperCategory": "advertisement",
+            "Jobs": [
+                "Community Sales Manager",
+                "Community Manager",
+                "Community Associate"
+            ],
+            "Category": [
+                "Workplace solutions",
+                " scalable",
+                " flexible",
+                " outsourced office space",
+                " meeting rooms",
+                " disaster recovery",
+                " telepresence",
+                " video conferencing",
+                " executive suites",
+                " find an office",
+                " office space",
+                " prime locations",
+                "business lounges",
+                "co-working"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 1,
+            "Name": "digitaletoekomst",
+            "ScraperCategory": "advertisement",
+            "Jobs": [],
+            "Category": [
+                "innovation",
+                " government",
+                " subsidies",
+                " administration",
+                " advice",
+                " consultancy",
+                " entrepreneurship",
+                " business",
+                " Flanders",
+                " industry",
+                " research",
+                " investment",
+                " entrepreneurs",
+                " government support",
+                " governance",
+                " public financing tools",
+                " fiscal measures",
+                "Flemish government",
+                "information"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 2,
+            "Name": "cropland",
+            "ScraperCategory": "advertisement",
+            "Jobs": [],
+            "Category": [
+                "Big data analytics",
+                " Data consultancy",
+                " Data strategy",
+                " Artificial Intelligence",
+                " Intelligence As A Service",
+                " R training",
+                " R programming",
+                " Python programming",
+                "Data engineering",
+                "Data wrangling"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 3,
+            "Name": "dx-solutions",
+            "ScraperCategory": "advertisement",
+            "Jobs": [],
+            "Category": [
+                "mobile apps",
+                "consultancy",
+                "training"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 4,
+            "Name": "tijd",
+            "ScraperCategory": "search result",
+            "Jobs": [],
+            "Category": [],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 5,
+            "Name": "imec",
+            "ScraperCategory": "search result",
+            "Jobs": [],
+            "Category": [
+                "R&D",
+                " nanoelectronics",
+                " life sciences",
+                " photovoltaics",
+                " wireless communications",
+                " data science",
+                " digital technologies",
+                " internet of things",
+                " wearables",
+                " flexible electronics",
+                "prototyping and low-volume production",
+                "advanced imaging systems"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 6,
+            "Name": "bloovi",
+            "ScraperCategory": "search result",
+            "Jobs": [],
+            "Category": [
+                "Innoveren",
+                " Marketing",
+                " Persoonlijk groeien",
+                " Dagelijks unieke content",
+                " High level events",
+                " ondernemen",
+                " innovatie",
+                " technologische vernieuwing",
+                " digital marketing",
+                " online marketing",
+                " branded content",
+                "conferences",
+                "awards"
+            ],
+            "Date": "25/12/2020"
+        },
+        {
+            "index": 7,
+            "Name": "realdolmen",
+            "ScraperCategory": "search result",
+            "Jobs": [],
+            "Category": [
+                "Strategic ICT",
+                "Operational ICT",
+                "Digital Flow"
+            ],
+            "Date": "25/12/2020"
+        }
+    ]
+}
