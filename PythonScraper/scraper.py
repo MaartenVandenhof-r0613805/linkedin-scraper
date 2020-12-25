@@ -170,9 +170,9 @@ for i in range(4):
 
 # NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
 # Take screenshot ad pages and save URL's to txt file
-index = 0
-for link in adLinks:
-    index = index + 1
+# index = 0
+# for link in adLinks:
+#     index = index + 1
     # screenshotURLAndAddPathToJSON(link, "adScreenshot_" + str(index), str(getNameFromSiteURL(link))
     # , dataJSON, "screenshotPath")
 
