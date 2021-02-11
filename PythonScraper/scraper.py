@@ -19,7 +19,7 @@ PATH = "./drivers/chromedriver.exe"
 # PATH = "./drivers/chromedriver"
 
 chrome_options = Options()
-# chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 
 driver = webdriver.Chrome(PATH, options=chrome_options)
 google_url = "https://www.google.be/search?q=artificiële intelligentie bedrijf"
@@ -264,13 +264,14 @@ def addLinkedinToDF(url, scraperCat):
 # Initialize LinkedIn with local account details
 # (create your own config.ini with account details local and point to that path)
 accountDetailsConfig = configparser.ConfigParser()
-accountDetailsConfig.read('C:/Users/Maarten Van den hof/Documents/config.ini')
+#accountDetailsConfig.read('C:/Users/Maarten Van den hof/Documents/config.ini')
+accountDetailsConfig.read('C:/Users/maart/Documents/config.ini')
 driver.get("https://www.linkedin.com/")
 driver.find_element_by_id("session_key").send_keys(accountDetailsConfig['CREDS']['USERNAME'])
 driver.find_element_by_id("session_password").send_keys(accountDetailsConfig['CREDS']['PASSWORD'])
 driver.find_elements_by_class_name("sign-in-form__submit-button")[0].click()
 print('wait')
-time.sleep(25)
+time.sleep(10)
 
 scraper_df = pandas.DataFrame(columns=['Name', 'ScraperCategory', 'Jobs', 'Category', 'Date'])
 # Get linkedin links
