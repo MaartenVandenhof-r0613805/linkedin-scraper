@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4768b485-41c8-44a9-b599-7ecd2ebe818e" name="Default Changelist" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/data/WebscrapeData.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/WebscrapeData.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1i2r0cPidWiLKbTSDOuZFAJ3ojf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projects\BrainJamProject1\PythonScraper\drivers" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.scraper">
+    <configuration name="ocrTesseract" type="PythonConfigurationType" factoryName="Python">
+      <module name="PythonScraper" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Python38\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ocrTesseract.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scraper" type="PythonConfigurationType" factoryName="Python">
+      <module name="PythonScraper" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scraper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.ocrTesseract" />
+      <item itemvalue="Python.scraper" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4768b485-41c8-44a9-b599-7ecd2ebe818e" name="Default Changelist" comment="" />
+      <created>1601116305412</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601116305412</updated>
+    </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <created>1601120682330</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601120682330</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1080" y="344" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1613056189618">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state x="-1080" y="344" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613056189618" />
+    <state x="845" y="151" key="FileChooserDialogImpl" timestamp="1606729023279">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="845" y="151" key="FileChooserDialogImpl/0.0.2048.1112/-1080.-251.1080.1880@0.0.2048.1112" timestamp="1606729023279" />
+    <state width="1059" height="445" key="GridCell.Tab.0.bottom" timestamp="1613057134347">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state width="1059" height="445" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613057134347" />
+    <state width="2027" height="242" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1080.-251.1080.1880@0.0.2048.1112" timestamp="1604951319191" />
+    <state width="1059" height="445" key="GridCell.Tab.0.center" timestamp="1613057134347">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state width="1059" height="445" key="GridCell.Tab.0.center/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613057134347" />
+    <state width="2027" height="242" key="GridCell.Tab.0.center/0.0.2048.1112/-1080.-251.1080.1880@0.0.2048.1112" timestamp="1604951319190" />
+    <state width="1059" height="445" key="GridCell.Tab.0.left" timestamp="1613057134347">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state width="1059" height="445" key="GridCell.Tab.0.left/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613057134347" />
+    <state width="2027" height="242" key="GridCell.Tab.0.left/0.0.2048.1112/-1080.-251.1080.1880@0.0.2048.1112" timestamp="1604951319190" />
+    <state width="1059" height="445" key="GridCell.Tab.0.right" timestamp="1613057134347">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state width="1059" height="445" key="GridCell.Tab.0.right/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613057134347" />
+    <state width="2027" height="242" key="GridCell.Tab.0.right/0.0.2048.1112/-1080.-251.1080.1880@0.0.2048.1112" timestamp="1604951319190" />
+    <state x="-1039" y="334" key="SettingsEditor" timestamp="1613056199969">
+      <screen x="-1080" y="-251" width="1080" height="1880" />
+    </state>
+    <state x="-1039" y="334" key="SettingsEditor/0.0.2048.1112/-1080.-251.1080.1880@-1080.-251.1080.1880" timestamp="1613056199969" />
+  </component>
+</project>
