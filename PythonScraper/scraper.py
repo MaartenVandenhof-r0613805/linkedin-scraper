@@ -135,6 +135,9 @@ def getNameFromSiteURL(url):
 #         addElementToJson(name, "jobs", jobTitles, dataJSON)
 #
 
+
+
+
 # SCRIPT
 
 # Remove Agree button and grayed out background
@@ -168,47 +171,8 @@ for i in range(4):
     # Add name site to JSON
     # (str(results[i].find_element_by_tag_name("a").get_attribute('href')), False, dataJSON)
 
-# NAVIGATE TO AND TAKE SCREENSHOTS FROM SITES
-# Take screenshot ad pages and save URL's to txt file
-# index = 0
-# for link in adLinks:
-#     index = index + 1
-    # screenshotURLAndAddPathToJSON(link, "adScreenshot_" + str(index), str(getNameFromSiteURL(link))
-    # , dataJSON, "screenshotPath")
-
-# Take screenshot search results
-# index = 0
-# for link in rLinks:
-#     index = index + 1
-#     screenshotURLAndAddPathToJSON(link, "resultScreenshot_" + str(index), str(getNameFromSiteURL(link)),
-#                                   dataJSON, "screenshotPath")
-
-# GET LINKEDIN DATA COMPANIES
-# Initialize LinkedIn with local account details
-# (create your own config.ini with account details local and point to that path)
-# accountDetailsConfig = configparser.ConfigParser()
-# accountDetailsConfig.read('C:/Users/Maarten Van den hof/Documents/config.ini')
-# driver.get("https://www.linkedin.com/")
-# driver.find_element_by_id("session_key").send_keys(accountDetailsConfig['CREDS']['USERNAME'])
-# driver.find_element_by_id("session_password").send_keys(accountDetailsConfig['CREDS']['PASSWORD'])
-# driver.find_elements_by_class_name("sign-in-form__submit-button")[0].click()
 
 
-# # Get linkedin links
-# for link in adLinks:
-#     addLinkedinToJSON(link)
-# for link in rLinks:
-#     addLinkedinToJSON(link)
-#
-# # Write JSON file
-# with open('./data/WebscrapeData.json', 'w') as out:
-#     json.dump(dataJSON, out)
-
-# # Close browser
-# driver.quit()
-
-
-# PANDAS VERSION
 
 # Load previous data (Should be replaces with a database)
 # with open("./data/WebscrapeData.json") as jsData:
